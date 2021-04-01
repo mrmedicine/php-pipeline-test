@@ -9,7 +9,6 @@ metadata:
   labels:
     io.kompose.ingress: php-example-service
   name: php-example-ingress #must be unique?
-  namespace: public
 spec:
   rules:
     - host: php-example.netpulse.nl
