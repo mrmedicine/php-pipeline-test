@@ -1,3 +1,29 @@
+#   INGRESS
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
+  generation: 3
+  labels:
+    io.kompose.ingress: php-example-service
+  name: php-example-ingress #must be unique?
+  namespace: public
+spec:
+  rules:
+    - host: php-example.netpulse.nl
+      http:
+        paths:
+          - backend:
+              serviceName: php-example-service #must match service name in service below
+              servicePort: 80
+            pathType: ImplementationSpecific
+  tls:
+    - hosts:
+        - php-example.netpulse.nl
+      secretName: php-example-tls-secret
+---
 kind: Service
 apiVersion: v1
 metadata:
